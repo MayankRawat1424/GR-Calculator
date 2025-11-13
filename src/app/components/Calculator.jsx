@@ -6,7 +6,7 @@ const Calculator = () => {
   const constants = { Mc: 3.4 };
   const alloys = {
     "45KH": { Ms: 19.6, density: 7190, C: 3.4 },
-    "40CrMnSiMoV": { Ms: 17.64, density: 7190, C: 3.74 },
+    "40CrMnSiMoV": { Ms: 17.64, density: 7190, C: 5.36 },
   };
 
   const [results, setResults] = useState([]);
@@ -16,13 +16,14 @@ const Calculator = () => {
     const d = parseFloat(d_nm);
     const { Ms, C } = alloys[alloy];
 
-    // 1️⃣ Gurney velocity (m/s)
-    const vf = 2830 * Math.pow(Ms / constants.Mc + 0.5, -0.5);
+    // Gurney velocity (m/s)
+    const M = Ms / C;
+    const vf = 2830 * Math.pow(M + 0.5, -0.5);
 
-    // 2️⃣ Fragment size ratio
+    // Fragment size ratio
     const fragmentSize = d / t;
 
-    // 3️⃣ Efficiency = C / Ms
+    // Efficiency = C / Ms
     const efficiency = C / Ms;
 
     const result = {
